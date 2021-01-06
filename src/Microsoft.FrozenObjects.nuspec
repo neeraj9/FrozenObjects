@@ -13,10 +13,13 @@
     <repository type="git" url="https://github.com/microsoft/FrozenObjects" />
     <dependencies>
       <group targetFramework=".NETCoreApp3.1" />
+      <group targetFramework=".NETCoreApp5.0" />
     </dependencies>
   </metadata>
   <files>
     <file src="bin/Release/netcoreapp3.1/Microsoft.FrozenObjects.dll" target="lib/netcoreapp3.1" />
     <file src="bin/Release/netcoreapp3.1/Microsoft.FrozenObjects.InternalCalls.dll" target="lib/netcoreapp3.1" />
+    <file src="bin/Release/net5.0/Microsoft.FrozenObjects.dll" target="lib/net5.0" />
+    <file src="bin/Release/net5.0/Microsoft.FrozenObjects.InternalCalls.dll" target="lib/net5.0" />
   </files>
 </package>

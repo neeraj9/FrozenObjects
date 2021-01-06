@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFrameworks>netcoreapp3.1;net5.0</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DebugType>Embedded</DebugType>
     <EmbedAllSources>true</EmbedAllSources>
@@ -15,7 +15,10 @@
   </ItemGroup>
 
   <Target Name="InvokeBuildTools" BeforeTargets="ResolveAssemblyReferences" Condition="!Exists('$(InternalCallsOutputPath)')">
-    <Exec WorkingDirectory="$(MSBuildThisFileDirectory)../tools" Command="dotnet run $(InternalCallsOutputPath)" />
+    <!-- TargetFramework is automatically set when you call "dotnet build -f ..."
+         to build the overall project.
+      -->
+    <Exec WorkingDirectory="$(MSBuildThisFileDirectory)../tools" Command="dotnet run -f $(TargetFramework) -v normal $(InternalCallsOutputPath)" />
   </Target>
 
 </Project>

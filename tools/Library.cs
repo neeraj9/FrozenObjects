@@ -39,7 +39,13 @@ namespace Microsoft.FrozenObjects.BuildTools
 
             var codeBuilder = new BlobBuilder();
 
+            // FIXME: ideally have local variables and then pass them to metadataBuilder.AddAssembyReference,
+            //        so there is reuse and also readable instead of such long lines of funcation calls.
+#if NET5_0
+            var spcAssemblyRef = metadataBuilder.AddAssemblyReference(metadataBuilder.GetOrAddString("System.Private.CoreLib"), new Version(5, 0, 0, 0), default, metadataBuilder.GetOrAddBlob(new byte[] { 0x7C, 0xEC, 0x85, 0xD7, 0xBE, 0xA7, 0x79, 0x8E }), default, default);
+#else
             var spcAssemblyRef = metadataBuilder.AddAssemblyReference(metadataBuilder.GetOrAddString("System.Private.CoreLib"), new Version(4, 0, 0, 0), default, metadataBuilder.GetOrAddBlob(new byte[] { 0x7C, 0xEC, 0x85, 0xD7, 0xBE, 0xA7, 0x79, 0x8E }), default, default);
+#endif
             var gcTypeRef = metadataBuilder.AddTypeReference(spcAssemblyRef, metadataBuilder.GetOrAddString("System"), metadataBuilder.GetOrAddString("GC"));
 
             var createRegisterFrozenSegmentMethodDefinitionHandle = CreateRegisterFrozenSegmentMethod(metadataBuilder, codeBuilder, CreateRegisterFrozenSegmentMemberReferenceHandle(metadataBuilder, gcTypeRef));
